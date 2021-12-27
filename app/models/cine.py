@@ -1,7 +1,7 @@
+from config import db
 from sqlalchemy import Column, Integer, String, Date
-from config.base import Base
 
-class Cines(Base):
+class Cines(db.Base):
     __tablename__ = "cines"
     id = Column(Integer, primary_key=True , autoincrement=True)
     provincia = Column(String(30))
@@ -21,3 +21,7 @@ class Cines(Base):
             self.cantidad_butacas = cantidad_butacas
             self.cantidad_espacios_incaa = cantidad_espacios_incaa
             self.fecha_carga = fecha_carga
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()            

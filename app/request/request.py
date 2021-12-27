@@ -6,11 +6,11 @@ from datetime import datetime
     Recibe la URL de donde descargar el archivo fuente y la categoria (museos, salas-cine, 'bibliotecas-populares').
 
 '''
-def request(categoria, url_museos):
+def request(categoria, url):
     '''
         Si la peticion se realizo correctamente guardo el archivo fuente para luego trabajar con pandas.
     '''
-    request = requests.get(url_museos)
+    request = requests.get(url)
     if request.status_code == 200:  
         # Obtengo la fecha para la creacion de la carpeta y el archivo
         date = datetime.today().strftime('%d-%m-%Y')
@@ -22,8 +22,6 @@ def request(categoria, url_museos):
           
         # Ruta de la carpeta
         parent_dir = 'files/'+categoria+'/'
-            
-        # Ruta
         path = os.path.join(parent_dir, directory)
             
         try:
@@ -33,9 +31,12 @@ def request(categoria, url_museos):
             route = parent_dir+directory+'/'
             content = request.content
             # Nombre del archivo csv descargado
-            name_file = route+categoria+'-'+date+'.csv'
-            file = open(name_file, 'wb')
+            route_file = route+categoria+'-'+date+'.csv'
+            file = open(route_file, 'wb')
             file.write(content)
             file.close()
         except OSError as error:
-            print("La carpeta '%s' no se pudo crear")        
+            print('La carpeta ' + categoria + ' no se pudo crear')  
+
+    # Retorno la ruta donde se almaceno el archivo fuente
+    return (route_file)              

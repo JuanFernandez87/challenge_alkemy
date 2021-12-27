@@ -1,22 +1,22 @@
-from sqlalchemy import Column, Integer, String, Date
-from config.base import Base
+from config import db
+from sqlalchemy import Column, Integer, String, Date, Float
 
-class Entidad(Base):
+class Entidad(db.Base):
     __tablename__ = "entidades"
     id = Column(Integer, primary_key=True , autoincrement=True)
     cod_localidad = Column(Integer)
     id_provincia = Column(Integer)
     id_departamento = Column(Integer)
     # Consultar si es un id o un string (museo, cine o biblioteca)
-    categoría = Column(String(30))
-    provincia = Column(String(30))
-    localidad = Column(String(30))
-    nombre = Column(String(30))
-    domicilio = Column(String(30))
-    codigo_postal = Column(Integer)
-    numero_de_telefono = Column(Integer)
-    mail = Column(String(30))
-    web = Column(String(30))
+    categoria = Column(String(100))
+    provincia = Column(String(100))
+    localidad = Column(String(100))
+    nombre = Column(String(200))
+    domicilio = Column(String(100))
+    codigo_postal = Column(String(50))
+    numero_de_telefono = Column(String(20))
+    mail = Column(String(100))
+    web = Column(String(150))
     fecha_carga = Column(Date)
 
     def __init__(self, 
@@ -47,3 +47,6 @@ class Entidad(Base):
         self.web = web
         self.fecha_carga = fecha_carga
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
