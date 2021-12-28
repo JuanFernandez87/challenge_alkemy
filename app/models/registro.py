@@ -5,7 +5,6 @@ class Registros(db.Base):
     __tablename__ = "registros"
     id = Column(Integer, primary_key=True , autoincrement=True)
     totales_categoria = Column(Integer)
-    # Que es por fuente?
     totales_fuente = Column(Integer)
     provincia_categoria = Column(Integer)
     fecha_carga = Column(Date)

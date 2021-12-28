@@ -1,5 +1,5 @@
 from config import db
-from sqlalchemy import Column, Integer, String, Date, Float
+from sqlalchemy import Column, Integer, String, Date
 
 class Entidad(db.Base):
     __tablename__ = "entidades"
@@ -7,7 +7,6 @@ class Entidad(db.Base):
     cod_localidad = Column(Integer)
     id_provincia = Column(Integer)
     id_departamento = Column(Integer)
-    # Consultar si es un id o un string (museo, cine o biblioteca)
     categoria = Column(String(100))
     provincia = Column(String(100))
     localidad = Column(String(100))
