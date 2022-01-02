@@ -28,7 +28,10 @@ if __name__ == '__main__':
         request.request_files(list_routes)  
 
         # Envio la lista de rutas de los archivos para almacenar en la base de datos
-        process.procces(list_routes)
+        process.process(list_routes)
+
+        # Envio la ruta de los cines para procesar la información
+        process.process_cines(list_routes[1])
 
         log.debug(f'El programa se ejecuto correctamente') 
         
