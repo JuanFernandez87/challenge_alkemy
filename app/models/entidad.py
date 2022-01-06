@@ -18,6 +18,7 @@ class Entidad(db.Base):
     web = Column(String(150))
     fecha_carga = Column(Date)
 
+
     def __init__(self, 
                 cod_localidad=None, 
                 id_provincia=None, 
@@ -46,6 +47,9 @@ class Entidad(db.Base):
         self.web = web
         self.fecha_carga = fecha_carga
 
+
+    # Guarda la entidad en la base de datos
     def save(self):
         db.session.add(self)
         db.session.commit()
+      

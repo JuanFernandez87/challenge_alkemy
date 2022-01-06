@@ -10,12 +10,13 @@ from logger.logger_base import log
         Cantidad de espacios INCAA -> espacio_INCAA
 '''      
 
+
 def process(fname):
     try:
-        # Leo el archivo fuente de la ruta 
-        df = pd.read_csv(fname, encoding='latin-1')
+        '''Leo el archivo fuente de la ruta''' 
+        df = pd.read_csv(fname)
 
-        # Agrupo la información por provincia y guardo los datos solicitados
+        '''Agrupo la información por provincia y guardo los datos solicitados'''
         df_filter = df.groupby("IdProvincia").agg(provincia = ('Provincia', 'first'),
                                             cant_pantallas = ('Pantallas', 'sum'),
                                             cant_butacas = ('Butacas', 'sum'),                                             
@@ -31,7 +32,8 @@ def process(fname):
             cine.fecha_carga = date.today()
             Cines.save(cine)
 
-        log.debug(f'La información de los cines se almaceno correctamente en la tabla cines') 
+        log.debug(f'La informacion de los cines se almaceno correctamente en la tabla cines') 
 
     except Exception as e:
-        log.debug(f'Ocurrio una excepcion {e}')              
+        log.debug(f'Ocurrio una excepcion {e}')   
+                   

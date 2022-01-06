@@ -23,25 +23,25 @@ def request(categoria, url):
     '''
     request = requests.get(url)
     if request.status_code == 200:  
-        # Obtengo la fecha para la creacion de la carpeta y el archivo
+        '''Obtengo la fecha para la creacion de la carpeta y el archivo'''
         date = datetime.today().strftime('%d-%m-%Y')
         year = datetime.today().strftime('%Y')
         month = datetime.today().strftime('%B')
           
-        # Carpeta año-mes
+        '''Carpeta año-mes'''
         directory = year+'-'+month
           
-        # Ruta de la carpeta
+        '''Ruta de la carpeta'''
         parent_dir = 'files/'+categoria+'/'
         path = os.path.join(parent_dir, directory)
             
         try:
-            # Crecion de la carpeta categoria-fecha
+            '''Crecion de la carpeta categoria-fecha'''
             os.makedirs(path, exist_ok = True)
-            # Ruta donde almacenar el archivo
+            '''Ruta donde almacenar el archivo'''
             route = parent_dir+directory+'/'
             content = request.content
-            # Nombre del archivo csv descargado
+            '''Nombre del archivo csv descargado'''
             route_file = route+categoria+'-'+date+'.csv'
             file = open(route_file, 'wb')
             file.write(content)
@@ -50,12 +50,12 @@ def request(categoria, url):
         except Exception as e:
             log.debug(f'Ocurrio una excepcion {e}') 
 
-    # Retorno la ruta donde se almaceno el archivo fuente
+    '''Retorno la ruta donde se almaceno el archivo fuente'''
     return (route_file)  
+
 
 def request_files(list_routes):
     list_routes.append(request('museos', url_museos))
     list_routes.append(request('salas-cine', url_salas_cine))
     list_routes.append(request('bibliotecas-populares', url_bibliotecas))
     return list_routes
-

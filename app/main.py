@@ -1,5 +1,4 @@
 from config import db
-from models import cine, entidad, registro
 from request import request
 from data import process 
 from logger.logger_base import log
@@ -11,29 +10,32 @@ if __name__ == '__main__':
     '''   
     
     try:        
-        # Instancio engine como lista para poder obtener la conexion por referencia
+        '''Instancio engine como lista para poder obtener la conexion por referencia'''
         engine = []
         
-        # Conexion con la base de datos
-        db.connect(engine)
-
-        # Borro todas las tables si ya estan creadas
+        '''
+            Conecto con la base de datos, borro todas las tables si ya estan creadas 
+            y por ultimo creo las tablas con las clases guardades en Base
+        '''
+        db.connect(engine)        
         db.Base.metadata.drop_all(engine[0])
-
-        # Creo las tablas con las clases guardades en Base
         db.Base.metadata.create_all(engine[0], checkfirst=True)
                  
-        # Guardo las rutas en una lista para enviarselas al proceso encargado de almacenar en la base de datos
+        '''Guardo las rutas en una lista para enviarselas al proceso encargado de almacenar en la base de datos'''
         list_routes = []
         request.request_files(list_routes)  
 
-        # Envio la lista de rutas de los archivos para almacenar en la base de datos
+        '''Envio la lista de rutas de los archivos para almacenar en la base de datos'''
         process.process(list_routes)
 
-        # Envio la ruta de los cines para procesar la información
+        '''Envio la ruta de los cines para procesar la información'''
         process.process_cines(list_routes[1])
+
+        '''Llamo a la funcion que procesa los datos conjuntos'''
+        process.process_record()
 
         log.debug(f'El programa se ejecuto correctamente') 
         
     except Exception as e:
         log.debug(f'Ocurrio una excepcion {e}')  
+        

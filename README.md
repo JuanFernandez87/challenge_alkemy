@@ -1,110 +1,53 @@
-Challenge Data Analytics - Python🚀
-¡Te damos la bienvenida al Challenge de Data Analytics con Python!
-En este documento podrás ver todos los detalles del proyecto que deberás realizar
-para ingresar a la aceleración.
-¿Estás list@? ¡Empecemos! 🏁
-Objetivo 👈
-Para resolver este challenge, deberás crear un proyecto que consuma datos desde
-3 fuentes distintas para popular una base de datos SQL con información cultural
-sobre bibliotecas, museos y salas de cines argentinos.
-Requerimientos funcionales 🔎
-Tu proyecto deberá cumplir con una serie de requerimientos funcionales que giran
-en torno a cuatro ejes centrales: los archivos fuente, el procesamiento de datos, la
-creación de tablas en la base de datos y la actualización de la base de datos.
-Veamos cada uno de ellos en detalle.
-Archivos fuente
-Los archivos fuentes serán utilizados en tu proyecto para obtener de ellos todo lo
-necesario para popular la base de datos. El proyecto deberá:
-● Obtener los 3 archivos de fuente utilizando la librería requests y
-almacenarse en forma local (Ten en cuenta que las urls pueden cambiar en
-un futuro):
-o Datos Argentina - Museos
-o Datos Argentina - Salas de Cine
-o Datos Argentina - Bibliotecas Populares
-● Organizar los archivos en rutas siguiendo la siguiente estructura:
-“categoría\año-mes\categoria-dia-mes-año.csv”
-○ Por ejemplo: “museos\2021-noviembre\museos-03-11-2021”
-○ Si el archivo existe debe reemplazarse. La fecha de la nomenclatura
-es la fecha de descarga.
-Procesamiento de datos
-El procesamiento de datos permitirá a nuestro proyecto transformar los datos de los
-archivos fuente en la información que va a nutrir la base de datos. Para esto, el
-proyecto deberá:
-● Normalizar toda la información de Museos, Salas de Cine y Bibliotecas
-Populares, para crear una única tabla que contenga:
-o cod_localidad
-o id_provincia
-o id_departamento
-o categoría
-o provincia
-o localidad
-o nombre
-o domicilio
-o código postal
-o número de teléfono
-o mail
-o web
-● Procesar los datos conjuntos para poder generar una tabla con la siguiente
-información:
-o Cantidad de registros totales por categoría
-o Cantidad de registros totales por fuente
-o Cantidad de registros por provincia y categoría
-● Procesar la información de cines para poder crear una tabla que contenga:
-o Provincia
-o Cantidad de pantallas
-o Cantidad de butacas
-o Cantidad de espacios INCAA
-Creación de tablas en la Base de datos
-Para disponibilizar la información obtenida y procesada en los pasos previos, tu
-proyecto deberá tener una base de datos que cumpla con los siguientes requisitos:
-● La base de datos debe ser PostgreSQL
-● Se deben crear los scripts .sql para la creación de las tablas.
-● Se debe crear un script .py que ejecute los scripts .sql para facilitar el deploy.
-● Los datos de la conexión deben poder configurarse fácilmente para facilitar
-el deploy en un nuevo ambiente de ser necesario.
-Actualización de la base de datos
-Luego de normalizar la información y generar las demás tablas, las mismas se
-deben actualizar en la base de datos. Para eso, es importante tener en cuenta que:
-● Todos los registros existentes deben ser reemplazados por la nueva
-información.
-● Dentro de cada tabla debe indicarse en una columna adicional la fecha de
-carga.
-● Los registros para los cuales la fuente no brinda información deben cargarse
-como nulos.
-Requerimientos técnicos 🔧
-Tu aplicación deberá cumplir con una serie de requerimientos técnicos que giran en
-torno a 7 ejes centrales. Veamos cada uno de ellos en detalle.
-Ejecución
-La descarga, procesamiento y actualización de la información en la base de datos
-se debe poder ejecutar desde un archivo .py
-Deploy
-El proyecto debe poder deployarse en forma sencilla siguiendo un readme, que al
-menos contenga las instrucciones para:
-● Utilizarse creando un entorno virtual (venv)
-● Instalar las dependencias necesarias con pip.
-● Configurar la conexión a la base de datos.
-Configuración
-Las configuraciones necesarias para que el proyecto se ejecute deben poder
-configurarse desde un archivo. env, .ini o similar con la librería Python-decouple.
-Logs
-El programa debe crear logs oportunos sobre la ejecución del mismo con la librería
-Logging.
-Bases de datos
-Se deben dejar disponibles los scripts de creación de las tablas utilizadas.
-Conexión a la base de datos
-● Los datos se deben almacenar en una base PostgreSQL
-● La conexión a la base de datos se debe implementar con la librería y ORM
-SQLalchemy.
-● Se recomienda ver la funcionalidad de pandas dataframe.to_sql
-Herramientas para el procesamiento de datos
-Utilizar la librería Pandas para procesar todos los datos que sean necesarios.
-Criterios a evaluar ☑️
-A la hora de evaluar tu challenge, tendremos en cuenta una serie de criterios que
-nos permitirán analizar con mayor detalle el producto alcanzado. Estos son:
-● Implementación de buenas prácticas de codificación y estilo de código
-(según PEP8).
-● Comentarios oportunos y docstrings descriptivos.
-● Manejo de excepciones preciso, no azaroso.
-● La estructura del proyecto debe ser limpia y ordenada.
-● El código deberá estar modularizado en componentes reutilizables e
-independientes.
+# Challenge Data Analytics - Python 
+----
+![](data:image/jpeg;base64,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)
+
+Este proyecto se realizo en Python y en base a una consigna dispuesta por Alkemy para hacer la pre-aceleración.
+Se utilizaron las siguientes herramientas para el desarrollo del proyecto:
+- Para obtener los archivos fuentes del sitio www.datos.gob.ar se uso la librería ***requests*** .
+- Para el procesamiento de los datos ***Pandas***.
+- Para el deploy se creo un entorno virtual ***venv*** y  ***pip*** como sistema de gestión de paquetes.
+- Para la configuración del proyecto ***Python-decouple*** con un archivo ***.env***.
+- Para crear logs de la ejecución la libreria ***Logging***.
+- La base de datos se almacenan en una base ***PostgreSQL*** y para la conexión se uso la libreria ***SQLalchemy***
+
+### Objetivo 
+----
+Para resolver este challenge, se creo un proyecto que consumia datos desde 3 fuentes distintas y que luego  populaba una base de datos SQL con información cultural sobre bibliotecas, museos y salas de cines argentinos.
+
+### Instalación
+----
+#### 1 Paso
+- ***1 forma***. Dar clic en Code y luego en Donwload Zip 
+- ***2 forma***. Crear una carpeta, ingresar a git bash y ejecutar
+
+```css
+  git clone https://github.com/JuanFernandez87/challenge_alkemy.git
+```
+
+#### 2 Paso
+- Crear una base de datos con el nombre Alkemy
+
+#### 3 Paso
+- Configurar la contraseña en el archivo .env
+- Configurar el usuario en el archivo .env
+
+#### 4 Paso
+- Instalar virtualenv
+```css
+pip install virtualenv
+```
+- Dentro de la carpeta del proyecto iniciar el entorno virtual
+```css
+virtualenv entornoProyecto
+```
+- Activar el entorno virtual
+```css
+source entornoProyecto/bin/activate
+```
+- Instalar las librerias utilizadas
+```css
+pip install -r requirements.txt
+```
+#### 5 Paso
+- Ejecutar el archivo main.py

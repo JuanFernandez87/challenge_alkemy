@@ -10,6 +10,7 @@ class Cines(db.Base):
     cantidad_espacios_incaa = Column(Integer)
     fecha_carga = Column(Date)
 
+
     def __init__(self,
                 provincia=None, 
                 cantidad_pantallas=None, 
@@ -22,6 +23,8 @@ class Cines(db.Base):
             self.cantidad_espacios_incaa = 0
             self.fecha_carga = fecha_carga
 
+
     def save(self):
         db.session.add(self)
-        db.session.commit()            
+        db.session.commit()   
+                 
